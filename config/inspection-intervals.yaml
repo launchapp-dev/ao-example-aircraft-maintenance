@@ -1,0 +1,90 @@
+# Regulatory inspection intervals for DHC-8-400 (Q400)
+# Source: Bombardier AMM / FAA Type Certificate Data Sheet A14W Rev 26
+# All intervals are MAXIMUM — actual scheduling should target 90% of interval
+
+check_types:
+  A_check:
+    interval_flight_hours: 600
+    interval_calendar_days: null
+    description: "Light inspection — general visual, lubrication, minor component checks"
+    location: "In-house (Bay 1, CYZV hangar)"
+    estimated_duration_days: 2
+    planning_horizon_fh: 100  # Begin planning when < 100 FH remaining
+    urgency_threshold_fh: 50  # Flag urgent when < 50 FH remaining
+
+  B_check:
+    interval_flight_hours: null
+    interval_calendar_days: 180  # 6 months
+    description: "Intermediate inspection — systems checks, filter replacements, operational tests"
+    location: "In-house (Bay 1, CYZV hangar)"
+    estimated_duration_days: 3
+    planning_horizon_days: 30
+    urgency_threshold_days: 7
+
+  C_check:
+    interval_flight_hours: 6000
+    interval_calendar_days: 730  # ~2 years, whichever comes first
+    description: "Heavy inspection — structural inspections, component overhauls, major systems testing"
+    location: "External MRO (Air Inuit Maintenance, Sept-Îles)"
+    estimated_duration_days: 21
+    planning_horizon_fh: 300
+    planning_horizon_days: 90
+    urgency_threshold_fh: 100
+    urgency_threshold_days: 30
+    notes: "Requires MRO slot booking at least 90 days in advance"
+
+  D_check:
+    interval_flight_hours: 24000
+    interval_calendar_days: 2920  # ~8 years, whichever comes first
+    description: "Structural overhaul — complete strip-down, structural inspection, full rebuild"
+    location: "Specialized MRO (contracted)"
+    estimated_duration_days: 60
+    planning_horizon_fh: 1000
+    planning_horizon_days: 180
+    urgency_threshold_fh: 500
+    notes: "Requires MRO contract negotiation — begin planning at least 6 months in advance"
+
+airworthiness_directives:
+  - ad_number: "AD 2024-02-13"
+    ata_chapter: "53"
+    title: "Fuselage Frame Station 600 Inspection"
+    effective_date: "2024-03-15"
+    compliance_interval_fh: 3000
+    compliance_interval_calendar_days: null
+    description: "Repetitive inspection of fuselage frame at station 600 for fatigue cracks"
+    applicability: "DHC-8-400, MSN 4001-4500"
+    reference_document: "Bombardier SB 84-53-27 Rev 2"
+    last_compliance_fh_offset: 0  # Complied at each aircraft's recorded hours
+    next_due_offset_fh: 3000
+
+  - ad_number: "AD 2023-18-05"
+    ata_chapter: "32"
+    title: "Main Landing Gear Actuator Inspection"
+    effective_date: "2023-10-01"
+    compliance_interval_fh: 1800
+    compliance_interval_calendar_days: 365
+    description: "Repetitive inspection of MLG retract actuator attach fittings for corrosion"
+    applicability: "DHC-8-400, all MSN"
+    reference_document: "Bombardier SB 84-32-18 Rev 1"
+
+  - ad_number: "AD 2025-07-22"
+    ata_chapter: "71"
+    title: "Engine Mount Inspection — PW150A"
+    effective_date: "2025-09-01"
+    compliance_interval_fh: 2400
+    compliance_interval_calendar_days: null
+    description: "Inspection of inboard engine mount bracket for cracks at lower attachment holes"
+    applicability: "DHC-8-400 with PW150A engines"
+    reference_document: "PW SB PW150A-71-0042"
+
+engine_limits:
+  engine_type: "PW150A"
+  hot_section_inspection_interval_fh: 3600
+  overhaul_interval_fh: 18000
+  life_limited_parts:
+    - part: "HP Compressor Disk Stage 1"
+      life_fh: 20000
+    - part: "HP Turbine Disk Stage 1"
+      life_fh: 18000
+    - part: "LP Turbine Disk Stage 1"
+      life_fh: 20000

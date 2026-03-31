@@ -1,0 +1,10 @@
+schedules:
+  - id: daily-ops
+    cron: "0 6 * * *"
+    workflow_ref: daily-ops
+    enabled: true
+
+  - id: weekly-fleet-review
+    cron: "0 7 * * 1"
+    workflow_ref: weekly-fleet-review
+    enabled: true

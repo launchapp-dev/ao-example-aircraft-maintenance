@@ -1,0 +1,283 @@
+{
+  "last_updated": "2026-03-30",
+  "aircraft": [
+    {
+      "tail_number": "C-GAOX",
+      "total_airframe_hours": 18420.5,
+      "total_cycles": 24610,
+      "inspections": {
+        "A_check": {
+          "last_completed_date": "2026-01-12",
+          "last_completed_hours": 18050.0,
+          "next_due_hours": 18650.0,
+          "remaining_hours": 229.5,
+          "status": "ok"
+        },
+        "B_check": {
+          "last_completed_date": "2025-11-15",
+          "next_due_date": "2026-05-15",
+          "remaining_days": 46,
+          "status": "ok"
+        },
+        "C_check": {
+          "last_completed_date": "2023-09-20",
+          "last_completed_hours": 16200.0,
+          "next_due_hours": 22200.0,
+          "next_due_date": "2025-09-20",
+          "remaining_hours": 3779.5,
+          "status": "ok"
+        },
+        "D_check": {
+          "last_completed_date": "2015-03-12",
+          "last_completed_hours": 0,
+          "next_due_hours": 24000.0,
+          "remaining_hours": 5579.5,
+          "status": "ok"
+        }
+      },
+      "ad_compliance": {
+        "AD_2024-02-13": {
+          "last_complied_hours": 16200.0,
+          "next_due_hours": 19200.0,
+          "remaining_hours": 779.5
+        },
+        "AD_2023-18-05": {
+          "last_complied_hours": 17820.0,
+          "last_complied_date": "2026-01-12",
+          "next_due_hours": 19620.0,
+          "next_due_date": "2027-01-12",
+          "remaining_hours": 1199.5
+        },
+        "AD_2025-07-22": {
+          "last_complied_hours": 17200.0,
+          "last_complied_date": "2025-10-08",
+          "next_due_hours": 19600.0,
+          "remaining_hours": 1179.5
+        }
+      }
+    },
+    {
+      "tail_number": "C-GBQX",
+      "total_airframe_hours": 17840.0,
+      "total_cycles": 23150,
+      "inspections": {
+        "A_check": {
+          "last_completed_date": "2026-02-20",
+          "last_completed_hours": 17680.0,
+          "next_due_hours": 18280.0,
+          "remaining_hours": 440.0,
+          "status": "ok"
+        },
+        "B_check": {
+          "last_completed_date": "2025-11-14",
+          "next_due_date": "2026-05-14",
+          "remaining_days": 45,
+          "status": "ok",
+          "notes": "Completed concurrent with C-check"
+        },
+        "C_check": {
+          "last_completed_date": "2025-11-14",
+          "last_completed_hours": 17600.0,
+          "next_due_hours": 23600.0,
+          "next_due_date": "2027-11-14",
+          "remaining_hours": 5760.0,
+          "status": "ok"
+        },
+        "D_check": {
+          "last_completed_date": "2015-09-08",
+          "last_completed_hours": 0,
+          "next_due_hours": 24000.0,
+          "remaining_hours": 6160.0,
+          "status": "ok"
+        }
+      },
+      "ad_compliance": {
+        "AD_2024-02-13": {
+          "last_complied_hours": 17600.0,
+          "next_due_hours": 20600.0,
+          "remaining_hours": 2760.0
+        },
+        "AD_2023-18-05": {
+          "last_complied_hours": 17600.0,
+          "last_complied_date": "2025-11-14",
+          "next_due_hours": 19400.0,
+          "next_due_date": "2026-11-14",
+          "remaining_hours": 1560.0
+        },
+        "AD_2025-07-22": {
+          "last_complied_hours": 17600.0,
+          "last_complied_date": "2025-11-14",
+          "next_due_hours": 20000.0,
+          "remaining_hours": 2160.0
+        }
+      }
+    },
+    {
+      "tail_number": "C-GCRX",
+      "total_airframe_hours": 16350.0,
+      "total_cycles": 21480,
+      "inspections": {
+        "A_check": {
+          "last_completed_date": "2025-12-08",
+          "last_completed_hours": 16010.0,
+          "next_due_hours": 16610.0,
+          "remaining_hours": 260.0,
+          "status": "ok",
+          "notes": "Next A-check due in ~260 FH — within planning window"
+        },
+        "B_check": {
+          "last_completed_date": "2025-10-08",
+          "next_due_date": "2026-04-08",
+          "remaining_days": 9,
+          "status": "schedule",
+          "notes": "B-check due in 9 days — schedule immediately"
+        },
+        "C_check": {
+          "last_completed_date": "2022-06-15",
+          "last_completed_hours": 10800.0,
+          "next_due_hours": 16800.0,
+          "next_due_date": "2024-06-15",
+          "remaining_hours": 450.0,
+          "status": "schedule",
+          "notes": "C-check due in approximately 450 FH or by date already exceeded — URGENT: schedule MRO slot"
+        },
+        "D_check": {
+          "last_completed_date": "2016-04-22",
+          "last_completed_hours": 0,
+          "next_due_hours": 24000.0,
+          "remaining_hours": 7650.0,
+          "status": "ok"
+        }
+      },
+      "ad_compliance": {
+        "AD_2024-02-13": {
+          "last_complied_hours": 13800.0,
+          "next_due_hours": 16800.0,
+          "remaining_hours": 450.0,
+          "status": "schedule"
+        },
+        "AD_2023-18-05": {
+          "last_complied_hours": 16010.0,
+          "last_complied_date": "2025-12-08",
+          "next_due_hours": 17810.0,
+          "next_due_date": "2026-12-08",
+          "remaining_hours": 1460.0
+        },
+        "AD_2025-07-22": {
+          "last_complied_hours": 14800.0,
+          "last_complied_date": "2025-04-20",
+          "next_due_hours": 17200.0,
+          "remaining_hours": 850.0
+        }
+      }
+    },
+    {
+      "tail_number": "C-GDRX",
+      "total_airframe_hours": 15620.5,
+      "total_cycles": 20340,
+      "inspections": {
+        "A_check": {
+          "last_completed_date": "2026-02-01",
+          "last_completed_hours": 15420.0,
+          "next_due_hours": 16020.0,
+          "remaining_hours": 399.5,
+          "status": "ok"
+        },
+        "B_check": {
+          "last_completed_date": "2026-02-01",
+          "next_due_date": "2026-08-01",
+          "remaining_days": 124,
+          "status": "ok"
+        },
+        "C_check": {
+          "last_completed_date": "2023-04-10",
+          "last_completed_hours": 13600.0,
+          "next_due_hours": 19600.0,
+          "next_due_date": "2025-04-10",
+          "remaining_hours": 3979.5,
+          "status": "ok"
+        },
+        "D_check": {
+          "last_completed_date": "2016-11-15",
+          "last_completed_hours": 0,
+          "next_due_hours": 24000.0,
+          "remaining_hours": 8379.5,
+          "status": "ok"
+        }
+      },
+      "open_mel_items": 1,
+      "mel_notes": "MEL-21-001 expires 2026-04-04 — outflow valve replacement required"
+    },
+    {
+      "tail_number": "C-GERX",
+      "total_airframe_hours": 14280.0,
+      "total_cycles": 18920,
+      "inspections": {
+        "A_check": {
+          "last_completed_date": "2026-01-25",
+          "last_completed_hours": 14080.0,
+          "next_due_hours": 14680.0,
+          "remaining_hours": 400.0,
+          "status": "ok"
+        },
+        "B_check": {
+          "last_completed_date": "2025-10-15",
+          "next_due_date": "2026-04-15",
+          "remaining_days": 16,
+          "status": "schedule",
+          "notes": "B-check due in 16 days — schedule now"
+        },
+        "C_check": {
+          "last_completed_date": "2024-01-20",
+          "last_completed_hours": 12200.0,
+          "next_due_hours": 18200.0,
+          "next_due_date": "2026-01-20",
+          "remaining_hours": 3920.0,
+          "status": "ok"
+        },
+        "D_check": {
+          "last_completed_date": "2017-06-30",
+          "last_completed_hours": 0,
+          "next_due_hours": 24000.0,
+          "remaining_hours": 9720.0,
+          "status": "ok"
+        }
+      }
+    },
+    {
+      "tail_number": "C-GFRX",
+      "total_airframe_hours": 12540.0,
+      "total_cycles": 16780,
+      "inspections": {
+        "A_check": {
+          "last_completed_date": "2026-03-05",
+          "last_completed_hours": 12440.0,
+          "next_due_hours": 13040.0,
+          "remaining_hours": 500.0,
+          "status": "ok"
+        },
+        "B_check": {
+          "last_completed_date": "2025-12-15",
+          "next_due_date": "2026-06-15",
+          "remaining_days": 77,
+          "status": "ok"
+        },
+        "C_check": {
+          "last_completed_date": "2022-08-10",
+          "last_completed_hours": 9400.0,
+          "next_due_hours": 15400.0,
+          "next_due_date": "2024-08-10",
+          "remaining_hours": 2860.0,
+          "status": "ok"
+        },
+        "D_check": {
+          "last_completed_date": "2018-01-20",
+          "last_completed_hours": 0,
+          "next_due_hours": 24000.0,
+          "remaining_hours": 11460.0,
+          "status": "ok"
+        }
+      }
+    }
+  ]
+}

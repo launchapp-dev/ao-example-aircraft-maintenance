@@ -1,0 +1,71 @@
+fleet:
+  airline: "Northern Sky Regional Airways"
+  base: "CYZV"  # Sept-Îles Airport, QC
+  aircraft_type: "DHC-8-400 (Q400)"
+
+aircraft:
+  - tail_number: "C-GAOX"
+    msn: "4037"
+    delivered: "2015-03-12"
+    engine_type: "PW150A"
+    seats: 74
+    total_airframe_hours: 18420.5
+    total_cycles: 24610
+    last_flight_date: "2026-03-29"
+    status: serviceable
+    notes: "High-cycle airframe, approaching C-check window"
+
+  - tail_number: "C-GBQX"
+    msn: "4051"
+    delivered: "2015-09-08"
+    engine_type: "PW150A"
+    seats: 74
+    total_airframe_hours: 17840.0
+    total_cycles: 23150
+    last_flight_date: "2026-03-29"
+    status: serviceable
+    notes: "C-check completed 2025-11-14 at Air Inuit MRO"
+
+  - tail_number: "C-GCRX"
+    msn: "4068"
+    delivered: "2016-04-22"
+    engine_type: "PW150A"
+    seats: 74
+    total_airframe_hours: 16350.0
+    total_cycles: 21480
+    last_flight_date: "2026-03-29"
+    status: serviceable
+    notes: "A-check due in approximately 70 FH — schedule soon"
+
+  - tail_number: "C-GDRX"
+    msn: "4089"
+    delivered: "2016-11-15"
+    engine_type: "PW150A"
+    seats: 74
+    total_airframe_hours: 15620.5
+    total_cycles: 20340
+    last_flight_date: "2026-03-28"
+    status: serviceable
+    notes: "MEL item: cabin pressurization caution light (ATA 21, Cat C, expires 2026-04-05)"
+
+  - tail_number: "C-GERX"
+    msn: "4112"
+    delivered: "2017-06-30"
+    engine_type: "PW150A"
+    seats: 74
+    total_airframe_hours: 14280.0
+    total_cycles: 18920
+    last_flight_date: "2026-03-29"
+    status: serviceable
+    notes: "B-check due 2026-04-15 (6-month interval from last B-check 2025-10-15)"
+
+  - tail_number: "C-GFRX"
+    msn: "4134"
+    delivered: "2018-01-20"
+    engine_type: "PW150A"
+    seats: 74
+    total_airframe_hours: 12540.0
+    total_cycles: 16780
+    last_flight_date: "2026-03-29"
+    status: serviceable
+    notes: "Newest aircraft, all inspection margins comfortable"

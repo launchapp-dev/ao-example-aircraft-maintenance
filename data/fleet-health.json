@@ -1,0 +1,103 @@
+{
+  "snapshot_date": "2026-03-30",
+  "fleet_size": 6,
+  "aircraft_serviceable": 6,
+  "aircraft_grounded": 0,
+  "fleet_availability_pct": 100.0,
+
+  "utilization": {
+    "period_start": "2026-03-23",
+    "period_end": "2026-03-29",
+    "target_daily_fh_per_aircraft": 8.0,
+    "fleet_totals": {
+      "block_hours": 320.4,
+      "cycles": 84,
+      "days_in_period": 7
+    },
+    "per_aircraft": [
+      {"tail": "C-GAOX", "weekly_fh": 55.8, "daily_avg": 7.97, "cycles": 14, "vs_target_pct": 99.6},
+      {"tail": "C-GBQX", "weekly_fh": 52.4, "daily_avg": 7.49, "cycles": 14, "vs_target_pct": 93.6},
+      {"tail": "C-GCRX", "weekly_fh": 57.2, "daily_avg": 8.17, "cycles": 14, "vs_target_pct": 102.1},
+      {"tail": "C-GDRX", "weekly_fh": 53.6, "daily_avg": 7.66, "cycles": 14, "vs_target_pct": 95.7},
+      {"tail": "C-GERX", "weekly_fh": 50.8, "daily_avg": 7.26, "cycles": 14, "vs_target_pct": 90.7},
+      {"tail": "C-GFRX", "weekly_fh": 50.6, "daily_avg": 7.23, "cycles": 14, "vs_target_pct": 90.4}
+    ],
+    "fleet_daily_avg_fh": 7.63,
+    "fleet_utilization_pct": 95.4
+  },
+
+  "inspection_summary": {
+    "urgent": [
+      {"tail": "C-GCRX", "check_type": "C_check", "remaining_fh": 450, "notes": "Calendar limit already exceeded, FH limit approaching"},
+      {"tail": "C-GCRX", "check_type": "B_check", "remaining_days": 9, "notes": "B-check due 2026-04-08"}
+    ],
+    "schedule": [
+      {"tail": "C-GERX", "check_type": "B_check", "remaining_days": 16, "notes": "B-check due 2026-04-15"},
+      {"tail": "C-GDRX", "check_type": "MEL", "notes": "MEL-21-001 expires 2026-04-04 — outflow valve replacement"}
+    ],
+    "ok_count": 20
+  },
+
+  "mel_status": {
+    "total_open_items": 1,
+    "expiring_within_7_days": [
+      {"tail": "C-GDRX", "mel_ref": "MEL-21-001", "expiry": "2026-04-04", "days_remaining": 5}
+    ],
+    "by_aircraft": [
+      {"tail": "C-GAOX", "open": 0},
+      {"tail": "C-GBQX", "open": 0},
+      {"tail": "C-GCRX", "open": 0},
+      {"tail": "C-GDRX", "open": 1},
+      {"tail": "C-GERX", "open": 0},
+      {"tail": "C-GFRX", "open": 0}
+    ]
+  },
+
+  "parts_procurement": {
+    "open_orders": 0,
+    "critical_shortages": [],
+    "life_limit_warnings": [
+      {"part_number": "50010-001", "serial": "MLG-P-0031", "installed_on": "C-GCRX", "tso_remaining_fh": 160, "notes": "MLG Port Actuator approaching overhaul at 2000 FH TSO — likely to be replaced at C-check"}
+    ]
+  },
+
+  "reliability": {
+    "period": "2026-03-01 to 2026-03-29",
+    "flights_planned": 168,
+    "flights_completed": 165,
+    "cancellations": 2,
+    "diversions": 1,
+    "dispatch_reliability_pct": 98.2,
+    "snag_rate_per_100fh": 0.82,
+    "repeat_defects": [
+      {"tail": "C-GDRX", "ata": "21", "description": "DIFF PRESS caution — recurring (MEL raised)", "occurrences": 3}
+    ]
+  },
+
+  "risk_items": [
+    {
+      "severity": "high",
+      "aircraft": "C-GCRX",
+      "description": "C-check calendar limit exceeded, FH limit approaching at 450 FH remaining. AD 2024-02-13 also due concurrently. MRO slot booking required immediately.",
+      "action_required": true
+    },
+    {
+      "severity": "medium",
+      "aircraft": "C-GDRX",
+      "description": "MEL-21-001 (cabin pressurization) expires 2026-04-04 (5 days). Serviceable replacement valve in warehouse. Schedule rectification work order.",
+      "action_required": true
+    },
+    {
+      "severity": "medium",
+      "aircraft": "C-GCRX",
+      "description": "B-check due 2026-04-08 (9 days). Can be combined with C-check induction if MRO accepts.",
+      "action_required": true
+    },
+    {
+      "severity": "low",
+      "aircraft": "C-GERX",
+      "description": "B-check due 2026-04-15 (16 days). Within planning window — schedule now.",
+      "action_required": false
+    }
+  ]
+}

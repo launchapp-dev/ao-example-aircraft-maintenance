@@ -1,0 +1,52 @@
+# Minimum Equipment List — Active Deferrals
+# Format compliant with MMEL Rev 14 for DHC-8-400
+# Categories: A = per AFM procedure, B = 3 calendar days, C = 10 calendar days, D = 120 calendar days
+
+active_deferrals:
+  - mel_ref: "MEL-21-001"
+    aircraft: "C-GDRX"
+    ata_chapter: "21"
+    title: "Cabin Differential Pressure Caution Light"
+    description: "DIFF PRESS caution light illuminates intermittently during climb when differential pressure > 5.5 PSI. Outflow valve trending closed slowly."
+    deferral_category: "C"
+    deferral_limit_days: 10
+    deferred_date: "2026-03-25"
+    expiry_date: "2026-04-04"
+    deferred_by: "Capt. Morrison"
+    procedures_required: "Crew to monitor cabin differential pressure; if pressure exceeds 6.0 PSI divert to lower altitude or nearest suitable airport."
+    part_required: "21300-001 (Outflow Valve - serial PRESS-OFV-0071 in warehouse)"
+    rectification_wo: null
+    status: active
+
+closed_deferrals:
+  - mel_ref: "MEL-33-001"
+    aircraft: "C-GAOX"
+    ata_chapter: "33"
+    title: "Galley Reading Light Row 8 Port"
+    description: "Reading light bulb burned out, row 8 port side"
+    deferral_category: "D"
+    deferral_limit_days: 120
+    deferred_date: "2026-02-10"
+    expiry_date: "2026-06-10"
+    deferred_by: "F/O Clarke"
+    procedures_required: "No operational restriction."
+    part_required: "LED light assembly PN 33-400-007"
+    rectification_wo: "WO-2026-001"
+    closed_date: "2026-03-01"
+    status: closed
+
+  - mel_ref: "MEL-23-001"
+    aircraft: "C-GERX"
+    ata_chapter: "23"
+    title: "Passenger Address Amplifier No. 2"
+    description: "PA amplifier No. 2 inoperative; No. 1 operational providing redundancy"
+    deferral_category: "C"
+    deferral_limit_days: 10
+    deferred_date: "2026-03-10"
+    expiry_date: "2026-03-20"
+    deferred_by: "Capt. Nielsen"
+    procedures_required: "Verify PA amplifier No. 1 operational before dispatch."
+    part_required: "PA Amplifier PN 23-300-002"
+    rectification_wo: "WO-2026-002"
+    closed_date: "2026-03-18"
+    status: closed

@@ -1,0 +1,79 @@
+default_workflow_ref: daily-ops
+
+workflows:
+  - id: daily-ops
+    name: "Daily Flight Operations & Maintenance Scheduling"
+    description: "Ingest flight hours, triage pilot snags, check inspection intervals, and flag maintenance needs across the fleet."
+    phases:
+      - ingest-flight-hours
+      - triage-snags
+      - schedule-inspections
+      - review-schedule:
+          on_verdict:
+            clear:
+              target: compile-fleet-report
+            schedule:
+              target: check-parts
+            urgent:
+              target: check-parts
+
+  - id: generate-work-order
+    name: "Work Order Generation"
+    description: "Create detailed maintenance work orders: check parts availability, procure if needed, generate work order, validate for regulatory compliance."
+    phases:
+      - check-parts
+      - procure-parts:
+          on_verdict:
+            ready:
+              target: create-work-order
+            ordered:
+              target: create-work-order
+      - create-work-order
+      - validate-work-order:
+          on_verdict:
+            rework:
+              target: create-work-order
+          max_rework_attempts: 2
+    post_success:
+      merge:
+        strategy: squash
+        target_branch: main
+        create_pr: true
+        auto_merge: true
+        cleanup_worktree: true
+
+  - id: certify-release
+    name: "Post-Maintenance Airworthiness Certification"
+    description: "Review completed maintenance, assess airworthiness, issue Certificate of Release to Service, and update fleet records."
+    phases:
+      - review-completion
+      - assess-airworthiness:
+          on_verdict:
+            serviceable:
+              target: issue-certificate
+            conditional:
+              target: issue-certificate
+      - issue-certificate
+      - update-records
+    post_success:
+      merge:
+        strategy: squash
+        target_branch: main
+        create_pr: true
+        auto_merge: true
+        cleanup_worktree: true
+
+  - id: weekly-fleet-review
+    name: "Weekly Fleet Health Review"
+    description: "Aggregate fleet metrics, analyze health trends, and produce the weekly management report."
+    phases:
+      - calculate-fleet-metrics
+      - analyze-fleet-health
+      - compile-fleet-report
+    post_success:
+      merge:
+        strategy: squash
+        target_branch: main
+        create_pr: true
+        auto_merge: true
+        cleanup_worktree: true

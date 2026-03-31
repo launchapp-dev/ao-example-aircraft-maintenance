@@ -1,0 +1,271 @@
+# Rotable parts inventory — DHC-8-400 Q400 fleet
+# TSO = Time Since Overhaul (hours); life_limit_fh = total retirement life
+# location: warehouse | on_wing (tail_number) | at_mro
+
+rotables:
+  - part_number: "50010-001"
+    description: "Main Landing Gear Actuator - Port"
+    ata_chapter: "32"
+    serial_number: "MLG-P-0047"
+    tso_hours: 1240
+    overhaul_interval_fh: 2000
+    life_limit_fh: 12000
+    total_time_hours: 8420
+    location: "on_wing"
+    installed_on: "C-GAOX"
+    last_overhaul_date: "2023-08-15"
+    serviceable: true
+
+  - part_number: "50010-002"
+    description: "Main Landing Gear Actuator - Starboard"
+    ata_chapter: "32"
+    serial_number: "MLG-S-0089"
+    tso_hours: 420
+    overhaul_interval_fh: 2000
+    life_limit_fh: 12000
+    total_time_hours: 5840
+    location: "on_wing"
+    installed_on: "C-GAOX"
+    last_overhaul_date: "2025-01-20"
+    serviceable: true
+
+  - part_number: "50010-001"
+    description: "Main Landing Gear Actuator - Port"
+    ata_chapter: "32"
+    serial_number: "MLG-P-0062"
+    tso_hours: 380
+    overhaul_interval_fh: 2000
+    life_limit_fh: 12000
+    total_time_hours: 6200
+    location: "warehouse"
+    installed_on: null
+    last_overhaul_date: "2025-03-10"
+    serviceable: true
+
+  - part_number: "50010-001"
+    description: "Main Landing Gear Actuator - Port"
+    ata_chapter: "32"
+    serial_number: "MLG-P-0031"
+    tso_hours: 1840
+    overhaul_interval_fh: 2000
+    life_limit_fh: 12000
+    total_time_hours: 9100
+    location: "on_wing"
+    installed_on: "C-GCRX"
+    last_overhaul_date: "2022-11-05"
+    serviceable: true
+    notes: "Approaching overhaul interval (160 FH remaining)"
+
+  - part_number: "71200-010"
+    description: "Engine Air Intake De-ice Valve - PW150A"
+    ata_chapter: "36"
+    serial_number: "DEICE-0112"
+    tso_hours: 2100
+    overhaul_interval_fh: 6000
+    life_limit_fh: null
+    total_time_hours: 8200
+    location: "on_wing"
+    installed_on: "C-GBQX"
+    last_overhaul_date: "2019-06-12"
+    serviceable: true
+
+  - part_number: "71200-010"
+    description: "Engine Air Intake De-ice Valve - PW150A"
+    ata_chapter: "36"
+    serial_number: "DEICE-0087"
+    tso_hours: 840
+    overhaul_interval_fh: 6000
+    life_limit_fh: null
+    total_time_hours: 5100
+    location: "warehouse"
+    installed_on: null
+    last_overhaul_date: "2024-07-22"
+    serviceable: true
+
+  - part_number: "29100-005"
+    description: "Hydraulic Pump - Engine-Driven No.1"
+    ata_chapter: "29"
+    serial_number: "HYD-P1-0234"
+    tso_hours: 3100
+    overhaul_interval_fh: 4000
+    life_limit_fh: 16000
+    total_time_hours: 11200
+    location: "on_wing"
+    installed_on: "C-GDRX"
+    last_overhaul_date: "2022-03-08"
+    serviceable: true
+    notes: "Overhaul due in approximately 900 FH"
+
+  - part_number: "29100-005"
+    description: "Hydraulic Pump - Engine-Driven No.1"
+    ata_chapter: "29"
+    serial_number: "HYD-P1-0198"
+    tso_hours: 680
+    overhaul_interval_fh: 4000
+    life_limit_fh: 16000
+    total_time_hours: 7400
+    location: "warehouse"
+    installed_on: null
+    last_overhaul_date: "2024-12-01"
+    serviceable: true
+
+  - part_number: "21300-001"
+    description: "Cabin Pressurization Outflow Valve"
+    ata_chapter: "21"
+    serial_number: "PRESS-OFV-0045"
+    tso_hours: 2800
+    overhaul_interval_fh: 4500
+    life_limit_fh: null
+    total_time_hours: 9600
+    location: "on_wing"
+    installed_on: "C-GDRX"
+    last_overhaul_date: "2021-09-14"
+    serviceable: true
+    notes: "Related to active MEL item — monitor for rectification"
+
+  - part_number: "21300-001"
+    description: "Cabin Pressurization Outflow Valve"
+    ata_chapter: "21"
+    serial_number: "PRESS-OFV-0071"
+    tso_hours: 120
+    overhaul_interval_fh: 4500
+    life_limit_fh: null
+    total_time_hours: 3200
+    location: "warehouse"
+    installed_on: null
+    last_overhaul_date: "2026-01-15"
+    serviceable: true
+
+  - part_number: "27400-008"
+    description: "Elevator Actuator - Port"
+    ata_chapter: "27"
+    serial_number: "ELEV-P-0156"
+    tso_hours: 4200
+    overhaul_interval_fh: 6000
+    life_limit_fh: 24000
+    total_time_hours: 14100
+    location: "on_wing"
+    installed_on: "C-GERX"
+    last_overhaul_date: "2020-05-22"
+    serviceable: true
+
+  - part_number: "27400-008"
+    description: "Elevator Actuator - Port"
+    ata_chapter: "27"
+    serial_number: "ELEV-P-0201"
+    tso_hours: 950
+    overhaul_interval_fh: 6000
+    life_limit_fh: 24000
+    total_time_hours: 8200
+    location: "warehouse"
+    installed_on: null
+    last_overhaul_date: "2024-02-18"
+    serviceable: true
+
+  - part_number: "79100-003"
+    description: "Engine Oil Filter Housing - PW150A"
+    ata_chapter: "79"
+    serial_number: null  # Expendable — no serial tracking
+    tso_hours: null
+    overhaul_interval_fh: null
+    life_limit_fh: null
+    total_time_hours: null
+    location: "warehouse"
+    installed_on: null
+    quantity_on_hand: 12
+    serviceable: true
+    expendable: true
+
+  - part_number: "32300-012"
+    description: "Nose Landing Gear Steering Actuator"
+    ata_chapter: "32"
+    serial_number: "NLG-STEER-0083"
+    tso_hours: 1640
+    overhaul_interval_fh: 3000
+    life_limit_fh: 18000
+    total_time_hours: 12400
+    location: "on_wing"
+    installed_on: "C-GFRX"
+    last_overhaul_date: "2023-04-11"
+    serviceable: true
+
+  - part_number: "34110-007"
+    description: "Air Data Computer"
+    ata_chapter: "34"
+    serial_number: "ADC-0341"
+    tso_hours: null  # Calendar/bench check only
+    overhaul_interval_fh: null
+    bench_check_interval_days: 730  # 2-year bench check
+    life_limit_fh: null
+    total_time_hours: null
+    last_bench_check_date: "2024-08-20"
+    next_bench_check_due: "2026-08-20"
+    location: "on_wing"
+    installed_on: "C-GAOX"
+    serviceable: true
+
+  - part_number: "25600-004"
+    description: "Emergency Locator Transmitter (ELT)"
+    ata_chapter: "25"
+    serial_number: "ELT-0218"
+    tso_hours: null
+    battery_expiry_date: "2027-01-01"
+    inspection_interval_days: 365
+    last_inspection_date: "2025-09-15"
+    location: "on_wing"
+    installed_on: "C-GCRX"
+    serviceable: true
+
+  - part_number: "52100-002"
+    description: "Passenger Door Seal (main entry)"
+    ata_chapter: "52"
+    serial_number: null
+    tso_hours: null
+    calendar_life_days: 1095  # 3-year rubber life
+    installation_date: "2023-10-08"
+    expiry_date: "2026-10-08"
+    location: "on_wing"
+    installed_on: "C-GAOX"
+    quantity_on_hand: 4  # Warehouse stock
+    serviceable: true
+    expendable: true
+
+  - part_number: "29200-001"
+    description: "Hydraulic Reservoir"
+    ata_chapter: "29"
+    serial_number: "HYDRES-0067"
+    tso_hours: 5200
+    overhaul_interval_fh: 12000
+    life_limit_fh: null
+    total_time_hours: 13400
+    location: "on_wing"
+    installed_on: "C-GBQX"
+    last_overhaul_date: "2017-03-15"
+    serviceable: true
+
+  - part_number: "36100-009"
+    description: "Bleed Air Control Valve - Engine 1"
+    ata_chapter: "36"
+    serial_number: "BLEED-1-0124"
+    tso_hours: 3400
+    overhaul_interval_fh: 5000
+    life_limit_fh: null
+    total_time_hours: 11800
+    location: "on_wing"
+    installed_on: "C-GAOX"
+    last_overhaul_date: "2020-07-28"
+    serviceable: true
+    notes: "Overhaul due in approximately 1600 FH"
+
+  - part_number: "36100-009"
+    description: "Bleed Air Control Valve - Engine 1"
+    ata_chapter: "36"
+    serial_number: "BLEED-1-0089"
+    tso_hours: 210
+    overhaul_interval_fh: 5000
+    life_limit_fh: null
+    total_time_hours: 4800
+    location: "warehouse"
+    installed_on: null
+    last_overhaul_date: "2026-02-05"
+    serviceable: true

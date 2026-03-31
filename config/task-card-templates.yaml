@@ -1,0 +1,210 @@
+# Standard task card templates for DHC-8-400 (Q400)
+# Source: Bombardier Aircraft Maintenance Manual (AMM) Rev 32
+
+task_cards:
+  # ============================================================
+  # A-CHECK TASK CARDS (600 FH light inspection)
+  # ============================================================
+
+  A-GEN-001:
+    check_type: A
+    title: "General Visual Inspection — Airframe External"
+    ata_chapter: "05"
+    zone: "All exterior zones (100-800)"
+    description: "Perform general visual inspection of entire airframe exterior. Check for obvious damage, missing fasteners, fluid leaks, and condition of paint/markings."
+    estimated_hours: 4.0
+    skill_required: "Licensed AME or supervised mechanic"
+    tooling: ["inspection torch", "mirror", "binoculars"]
+    parts_consumed: []
+    mandatory: true
+
+  A-GEN-002:
+    check_type: A
+    title: "Engine Cowling and Nacelle Inspection"
+    ata_chapter: "71"
+    zone: "210, 220 (nacelles)"
+    description: "Inspect engine cowling panels, latches, and hinges. Check nacelle interior for oil leaks, chafing, and heat damage. Verify all cowl fasteners secure."
+    estimated_hours: 2.0
+    skill_required: "Licensed AME"
+    tooling: ["inspection torch", "torque wrench"]
+    parts_consumed: []
+    mandatory: true
+
+  A-LUB-001:
+    check_type: A
+    title: "Flight Control Surface Lubrication"
+    ata_chapter: "27"
+    zone: "All control surface hinge points"
+    description: "Lubricate all aileron, elevator, rudder, and flap hinge bearings per the lubrication schedule. Use Aeroshell 33 grease. Verify full range of motion after lubrication."
+    estimated_hours: 3.0
+    skill_required: "Licensed AME"
+    tooling: ["grease gun", "appropriate fittings", "rags"]
+    parts_consumed: ["Aeroshell 33 Grease 0.5kg"]
+    mandatory: true
+
+  A-LG-001:
+    check_type: A
+    title: "Landing Gear Visual Inspection and Lubrication"
+    ata_chapter: "32"
+    zone: "120, 130 (landing gear bays)"
+    description: "Inspect main and nose landing gear for condition, fluid leaks, and tire wear. Check actuators, uplocks, and downlocks. Lubricate specified points per AMM 32-10-00."
+    estimated_hours: 3.5
+    skill_required: "Licensed AME"
+    tooling: ["inspection torch", "grease gun", "tire pressure gauge"]
+    parts_consumed: ["MIL-PRF-5606 hydraulic fluid 1L if needed"]
+    mandatory: true
+
+  A-ENG-001:
+    check_type: A
+    title: "Engine Oil Level Check and Replenishment"
+    ata_chapter: "79"
+    zone: "210, 220"
+    description: "Check engine oil level on both PW150A engines. Replenish with approved oil (Mobil Jet Oil II) to between min and max markers. Check for contamination."
+    estimated_hours: 0.5
+    skill_required: "Licensed AME or supervised mechanic"
+    tooling: ["oil dip stick", "approved oil container", "funnel"]
+    parts_consumed: ["Mobil Jet Oil II up to 2L per engine"]
+    mandatory: true
+
+  A-FLT-001:
+    check_type: A
+    title: "Flight Deck — Functional Checks"
+    ata_chapter: "31"
+    zone: "211 (flight deck)"
+    description: "Check all avionics for power-on operation. Test warning lights, fire suppression handles, and emergency systems. Verify all circuit breakers in-spec position."
+    estimated_hours: 2.0
+    skill_required: "Licensed AME (avionics)"
+    tooling: ["headset", "test power supply"]
+    parts_consumed: []
+    mandatory: true
+
+  A-FIR-001:
+    check_type: A
+    title: "Fire Extinguisher and Smoke Detector Check"
+    ata_chapter: "26"
+    zone: "Cabin, cargo, and engine compartments"
+    description: "Check portable fire extinguisher charge levels and hydrostatic test dates. Functionally test smoke detectors in cargo compartment. Check engine fire detection loop continuity."
+    estimated_hours: 1.5
+    skill_required: "Licensed AME"
+    tooling: ["multimeter", "smoke detector tester"]
+    parts_consumed: []
+    mandatory: true
+
+  # ============================================================
+  # B-CHECK TASK CARDS (6-month intermediate inspection)
+  # Includes all A-check tasks plus the following
+  # ============================================================
+
+  B-FIL-001:
+    check_type: B
+    title: "Engine Oil Filter Replacement — Both Engines"
+    ata_chapter: "79"
+    zone: "210, 220"
+    description: "Remove and inspect engine oil filters from both PW150A engines. Check for metal particles (debris analysis if particles found). Install new filters."
+    estimated_hours: 2.0
+    skill_required: "Licensed AME"
+    tooling: ["filter removal tool", "inspection tray", "magnifying glass", "torque wrench"]
+    parts_consumed: ["79100-003 x2 (oil filter housing)"]
+    mandatory: true
+
+  B-HYD-001:
+    check_type: B
+    title: "Hydraulic Fluid Sample and Filter Check"
+    ata_chapter: "29"
+    zone: "MLG bay, hydraulic bay"
+    description: "Take hydraulic fluid sample for lab analysis. Check hydraulic filters (return and pressure). Replace filters if contamination count exceeds limits. Top up reservoir as needed."
+    estimated_hours: 2.5
+    skill_required: "Licensed AME"
+    tooling: ["sample kit", "filter wrench", "torque wrench", "contamination meter"]
+    parts_consumed: ["Hydraulic filter elements if replace (per contamination check)"]
+    mandatory: true
+
+  B-OXY-001:
+    check_type: B
+    title: "Oxygen System Pressure Check"
+    ata_chapter: "35"
+    zone: "Flight deck, cabin overhead"
+    description: "Check flight deck and passenger oxygen system pressures. Check portable oxygen bottle charges. Inspect oxygen masks for condition and expiry dates."
+    estimated_hours: 1.5
+    skill_required: "Licensed AME (avionics/systems)"
+    tooling: ["pressure gauge adapter", "oxygen analysis kit"]
+    parts_consumed: []
+    mandatory: true
+
+  B-BAT-001:
+    check_type: B
+    title: "Aircraft Battery Inspection and Capacity Check"
+    ata_chapter: "24"
+    zone: "Electrical bay"
+    description: "Remove main and standby batteries. Inspect for corrosion, swelling, and electrolyte leaks. Perform capacity check. Clean battery compartment. Reinstall and check charging circuit."
+    estimated_hours: 2.0
+    skill_required: "Licensed AME (avionics)"
+    tooling: ["battery analyzer", "hydrometer", "PPE", "neutralizing agent"]
+    parts_consumed: []
+    mandatory: true
+
+  B-FLT-CTRL-001:
+    check_type: B
+    title: "Flight Control Cable Tension Check"
+    ata_chapter: "27"
+    zone: "Fuselage, tail section"
+    description: "Check tension in all primary flight control cables (aileron, elevator, rudder) per AMM limits. Adjust turnbuckles if out of spec. Verify safety lock-wire."
+    estimated_hours: 3.0
+    skill_required: "Licensed AME"
+    tooling: ["cable tensiometer", "turnbuckle wrench", "safety wire pliers", "safety wire"]
+    parts_consumed: ["Safety wire as required"]
+    mandatory: true
+
+  # ============================================================
+  # C-CHECK TASK CARDS (6000 FH heavy inspection — partial list)
+  # Includes all A/B tasks plus structural inspections
+  # ============================================================
+
+  C-STRUCT-001:
+    check_type: C
+    title: "Wing Root Attachment Inspection — NDT"
+    ata_chapter: "53"
+    zone: "150, 160 (wing root)"
+    description: "Eddy current inspection of wing root attachment fittings and adjacent skin for fatigue cracks. Surface preparation required. Inspect 100% of specified areas per NDT procedure."
+    estimated_hours: 12.0
+    skill_required: "NDT Level II (eddy current)"
+    tooling: ["eddy current probe set", "reference standard", "scan recording equipment"]
+    parts_consumed: []
+    mandatory: true
+    ad_compliance: "AD 2024-02-13 (station 600 variant)"
+
+  C-STRUCT-002:
+    check_type: C
+    title: "Pressure Vessel Inspection — Fuselage Skin"
+    ata_chapter: "53"
+    zone: "All fuselage pressure zones"
+    description: "Visual and high-frequency eddy current inspection of pressurized fuselage skin at lap joints, butt joints, and frame attachment areas. Document any findings exceeding limits."
+    estimated_hours: 24.0
+    skill_required: "NDT Level II, Licensed AME"
+    tooling: ["eddy current equipment", "dye penetrant kit", "bore scope"]
+    parts_consumed: []
+    mandatory: true
+
+  C-ENGINE-001:
+    check_type: C
+    title: "Engine Borescope Inspection — PW150A"
+    ata_chapter: "72"
+    zone: "210, 220 (engines)"
+    description: "Internal borescope inspection of both PW150A engines per PWC CMM. Inspect fan blades, compressor stages, combustor, turbine stages. Record all findings."
+    estimated_hours: 8.0
+    skill_required: "Licensed AME with PW150A type endorsement"
+    tooling: ["flexible borescope 4mm", "rigid borescope 8mm", "illuminator", "video recording"]
+    parts_consumed: []
+    mandatory: true
+
+  C-LG-OVERHAUL-001:
+    check_type: C
+    title: "Landing Gear Actuator Inspection and Overhaul Assessment"
+    ata_chapter: "32"
+    zone: "120, 130"
+    description: "Remove MLG and NLG actuators for detailed inspection. Check for corrosion, wear, and sealing. If TSO > 80% of overhaul interval, send for overhaul. Reinstall with new seals."
+    estimated_hours: 16.0
+    skill_required: "Licensed AME"
+    tooling: ["actuator removal tooling", "hoist", "hydraulic test rig", "torque wrench"]
+    parts_consumed: ["Actuator seal kit per applicable overhaul manual"]
+    mandatory: true

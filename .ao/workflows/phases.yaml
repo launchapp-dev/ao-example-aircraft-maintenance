@@ -1,0 +1,339 @@
+phases:
+  # ========================================
+  # daily-ops phases
+  # ========================================
+
+  ingest-flight-hours:
+    mode: command
+    command:
+      program: bash
+      args: ["-c", "scripts/ingest-flight-hours.sh"]
+      cwd_mode: task_root
+      timeout_secs: 120
+    capabilities:
+      mutates_state: true
+      writes_files: true
+    directive: |
+      Parse yesterday's flight data from incoming CSV, update fleet manifest hours/cycles,
+      and append records to data/flight-log.json. The script handles all data transformation.
+
+  triage-snags:
+    mode: agent
+    agent: maintenance-controller
+    directive: |
+      Review the latest entries in data/flight-log.json for pilot remarks (snags).
+
+      For each snag found:
+      1. Read the flight log to find any remarks from yesterday's flights
+      2. Classify by ATA chapter and severity (safety-critical / operational / minor)
+      3. For safety-critical snags: flag the aircraft for immediate grounding
+      4. For operational snags: add to config/mel-items.yaml with appropriate deferral category and expiry
+      5. For minor snags: note for inclusion in next scheduled maintenance work order
+
+      If no snags were reported, note that in your output.
+
+      Write your triage results to data/snag-triage-latest.json with:
+      - date, total_snags, safety_critical (array), mel_additions (array), deferred_to_maintenance (array)
+    capabilities:
+      mutates_state: true
+      writes_files: true
+
+  schedule-inspections:
+    mode: agent
+    agent: fleet-planner
+    directive: |
+      Analyze inspection schedules across the entire fleet.
+
+      1. Read config/fleet-manifest.yaml for current hours/cycles per aircraft
+      2. Read config/inspection-intervals.yaml for regulatory intervals
+      3. Read data/inspection-status.json for last-completed and next-due data
+      4. For each aircraft, calculate remaining margin (hours and calendar) for every check type
+      5. Read config/mel-items.yaml and check for any deferrals approaching expiry
+      6. Read data/snag-triage-latest.json for any aircraft flagged for grounding
+
+      Produce a scheduling analysis written to data/scheduling-analysis.json:
+      - per_aircraft: array of { tail_number, status (serviceable/grounded), checks_due (array), mel_expiring (array) }
+      - recommendations: array of { aircraft, action, check_type, priority, recommended_date, rationale }
+      - fleet_availability: number of aircraft currently serviceable
+      - overall_urgency: clear / schedule / urgent
+    capabilities:
+      mutates_state: true
+      writes_files: true
+
+  review-schedule:
+    mode: agent
+    agent: fleet-planner
+    directive: |
+      Review the scheduling analysis from data/scheduling-analysis.json and make a fleet-level decision.
+
+      Use sequential-thinking to evaluate:
+      - Can maintenance be scheduled without dropping below 4 serviceable aircraft?
+      - Are there conflicting maintenance windows that need deconfliction?
+      - Are any aircraft at critical inspection margins (< 50 FH or < 7 days)?
+
+      Provide your decision as a verdict:
+      - "clear": no maintenance actions needed, all margins are comfortable
+      - "schedule": one or more aircraft need maintenance work orders created (not yet critical)
+      - "urgent": immediate action required — aircraft approaching hard limits or grounded on safety snags
+    decision_contract:
+      required_fields: [verdict, reasoning, aircraft_requiring_action]
+    capabilities:
+      mutates_state: false
+
+  # ========================================
+  # generate-work-order phases
+  # ========================================
+
+  check-parts:
+    mode: agent
+    agent: parts-manager
+    directive: |
+      Check parts availability for the planned maintenance identified in data/scheduling-analysis.json.
+
+      1. Read data/scheduling-analysis.json to identify which aircraft need maintenance and what check types
+      2. Read config/task-card-templates.yaml to determine parts required for each check type
+      3. Read config/parts-catalog.yaml for current inventory (items with location: warehouse are available)
+      4. Cross-reference requirements vs inventory
+      5. Identify any rotable parts approaching life limits (TSO > 80% of overhaul interval)
+
+      Write parts availability report to data/parts-check-latest.json:
+      - check_type, aircraft, parts_available (array), parts_shortage (array with part_number, qty_needed, qty_available),
+        life_limit_warnings (array), overall_status (available / shortage / critical-shortage)
+    capabilities:
+      mutates_state: true
+      writes_files: true
+
+  procure-parts:
+    mode: agent
+    agent: parts-manager
+    directive: |
+      Review the parts check from data/parts-check-latest.json.
+
+      If shortages exist:
+      1. Generate procurement orders for each shortage item
+      2. Set urgency based on the maintenance priority (AOG = 24-48hr delivery, normal = 5-10 business days)
+      3. Verify estimated delivery date is before the planned induction date from scheduling analysis
+      4. Append procurement orders to data/parts-orders.json
+
+      Provide your verdict:
+      - "ready": all parts in stock, no procurement needed
+      - "ordered": procurement orders placed, delivery confirmed before maintenance induction
+      - "blocked": critical parts cannot be obtained in time — maintenance cannot proceed as planned
+    decision_contract:
+      required_fields: [verdict, reasoning, procurement_summary]
+    capabilities:
+      mutates_state: true
+      writes_files: true
+
+  create-work-order:
+    mode: agent
+    agent: maintenance-controller
+    directive: |
+      Generate a complete work order for the upcoming maintenance event.
+
+      1. Read data/scheduling-analysis.json for the aircraft and check type
+      2. Read config/task-card-templates.yaml for the applicable task cards
+      3. Read config/mel-items.yaml for any MEL rectifications to include in the work scope
+      4. Read data/parts-check-latest.json for confirmed parts availability
+      5. Compile the work order:
+         - Assign a work order number: WO-YYYY-NNN (use current year, next sequential number)
+         - List all task cards with descriptions and estimated hours
+         - Include MEL rectification tasks
+         - Include any AD compliance tasks from config/inspection-intervals.yaml
+         - Total labor hours (sum + 15% contingency)
+         - Assign bay (Bay 1 for A/B checks, external MRO reference for C/D)
+         - Set induction and estimated completion dates
+
+      Write the work order to data/work-orders/WO-YYYY-NNN.json
+    capabilities:
+      mutates_state: true
+      writes_files: true
+      requires_commit: true
+
+  validate-work-order:
+    mode: agent
+    agent: certifying-engineer
+    directive: |
+      Review the latest work order in data/work-orders/ for regulatory compliance and completeness.
+
+      Validation checklist:
+      1. All mandatory task cards for the check type are included (cross-reference with task-card-templates.yaml)
+      2. Any applicable ADs from inspection-intervals.yaml are addressed in the work scope
+      3. MEL rectification items that are due are included
+      4. Parts requirements match the task card specifications
+      5. Labor estimates are reasonable (not less than 80% of template estimates)
+      6. Induction date allows sufficient time for the scope of work
+      7. Work order references are complete (aircraft, check type, regulatory basis)
+
+      Use sequential-thinking for complex validation where multiple regulatory requirements intersect.
+
+      Provide your verdict:
+      - "approve": work order meets all requirements, ready for execution
+      - "rework": specific items are missing or non-compliant (list them in reasoning)
+      - "reject": fundamental regulatory or safety issue that cannot be fixed by adding tasks
+    decision_contract:
+      required_fields: [verdict, reasoning, compliance_items_checked]
+    capabilities:
+      mutates_state: false
+
+  # ========================================
+  # certify-release phases
+  # ========================================
+
+  review-completion:
+    mode: agent
+    agent: certifying-engineer
+    directive: |
+      Review the completed work order for maintenance sign-off verification.
+
+      1. Read the work order from data/work-orders/ (find the one with status: completed or in-progress)
+      2. Verify each task card in the work order has a completion record
+      3. For parts replacement tasks: verify new part serial numbers are documented
+      4. For AD compliance tasks: verify the AD number and amendment are correctly referenced
+      5. For MEL rectification: verify the deferred item is properly closed out
+      6. Note any deviations, additional findings, or incomplete items
+
+      Write your completion review to data/completion-review-latest.json:
+      - wo_number, aircraft, tasks_total, tasks_complete, tasks_incomplete (array),
+        parts_verified (boolean), ad_compliance_verified (boolean), findings (array), review_status
+    capabilities:
+      mutates_state: true
+      writes_files: true
+
+  assess-airworthiness:
+    mode: agent
+    agent: certifying-engineer
+    directive: |
+      Make the airworthiness determination based on the completion review in data/completion-review-latest.json.
+
+      Use sequential-thinking to evaluate:
+      - Are all safety-critical task cards complete?
+      - Are there any unresolved findings that affect airworthiness?
+      - Are carried-forward MEL items within their deferral periods?
+      - Do any findings require further investigation before release?
+
+      This is a safety-critical decision. Be conservative.
+
+      Provide your verdict:
+      - "serviceable": all maintenance completed satisfactorily, aircraft meets all airworthiness requirements,
+        no outstanding mandatory items. Aircraft is cleared for unrestricted return to service.
+      - "conditional": maintenance completed but with acceptable limitations (e.g., MEL items carried forward,
+        cosmetic items deferred). Aircraft may fly with documented limitations.
+      - "grounded": unresolved safety findings, incomplete mandatory tasks, or structural/systems issues
+        that have not been resolved. Aircraft MUST NOT fly until further maintenance is performed.
+    decision_contract:
+      required_fields: [verdict, reasoning, safety_findings, limitations]
+    capabilities:
+      mutates_state: false
+
+  issue-certificate:
+    mode: agent
+    agent: certifying-engineer
+    directive: |
+      Generate the Certificate of Release to Service (CRS) for the aircraft.
+
+      1. Read the completion review from data/completion-review-latest.json
+      2. Read the work order for detailed work performed
+      3. Generate the CRS with:
+         - CRS number: CRS-YYYY-NNN (current year, next sequential number)
+         - Aircraft tail number and type
+         - Work order reference
+         - Summary of work performed
+         - Formal conformity statement: "I certify that the work specified has been carried out in accordance
+           with the approved maintenance data and is considered ready for release to service."
+         - List of ADs complied with (if any)
+         - Limitations (if conditional release)
+         - Certifying engineer details and authority reference
+
+      Write the certificate to data/airworthiness-certs/CRS-YYYY-NNN.json
+
+      Also update the work order status to "completed" and record the CRS reference.
+    capabilities:
+      mutates_state: true
+      writes_files: true
+      requires_commit: true
+
+  update-records:
+    mode: command
+    command:
+      program: bash
+      args: ["-c", "scripts/update-records.sh"]
+      cwd_mode: task_root
+      timeout_secs: 120
+    capabilities:
+      mutates_state: true
+      writes_files: true
+    directive: |
+      Post-maintenance record updates:
+      - Update fleet manifest with new inspection completion dates and hours
+      - Update inspection-status.json with new next-due intervals
+      - Close out rectified MEL items in mel-items.yaml
+      - Update parts catalog with new serial numbers for replaced rotable components
+      - Archive the completed work order to data/history/
+
+  # ========================================
+  # weekly-fleet-review phases
+  # ========================================
+
+  calculate-fleet-metrics:
+    mode: command
+    command:
+      program: bash
+      args: ["-c", "scripts/calculate-fleet-metrics.sh"]
+      cwd_mode: task_root
+      timeout_secs: 180
+    capabilities:
+      mutates_state: true
+      writes_files: true
+    directive: |
+      Aggregate fleet-wide metrics from all data sources:
+      - Per-aircraft utilization (FH and cycles this week vs target)
+      - Fleet-wide utilization rate
+      - Inspection margins summary
+      - Open MEL items count and aging
+      - Open parts orders and delivery status
+      - Snag rate (pilot remarks per 100 FH)
+      - Dispatch reliability (flights completed / flights planned)
+      Write results to data/fleet-health.json and archive previous to data/history/
+
+  analyze-fleet-health:
+    mode: agent
+    agent: fleet-planner
+    directive: |
+      Analyze fleet health data from data/fleet-health.json and produce a strategic assessment.
+
+      1. Review utilization trends — are any aircraft under/over-utilized relative to the fleet average?
+      2. Assess upcoming maintenance windows — will heavy checks cluster and create availability problems?
+      3. Review MEL aging — any items approaching deferral expiry that could ground an aircraft?
+      4. Evaluate parts supply chain — are there recurring shortages or long-lead items needing attention?
+      5. Check reliability trends — is any aircraft showing deteriorating dispatch reliability?
+      6. Identify risk items that need management attention
+
+      Write your analysis to data/fleet-analysis-latest.json:
+      - utilization_assessment, maintenance_forecast_30d, maintenance_forecast_90d,
+        risk_items (array), recommendations (array), fleet_health_score (1-10)
+    capabilities:
+      mutates_state: true
+      writes_files: true
+
+  compile-fleet-report:
+    mode: agent
+    agent: reporter
+    directive: |
+      Generate the weekly fleet health report from data/fleet-health.json and data/fleet-analysis-latest.json.
+
+      Report structure:
+      1. Fleet Status Summary — table with per-aircraft status, hours, cycles, next check due
+      2. Utilization Metrics — average daily FH, fleet utilization rate, target comparison
+      3. Maintenance Forecast — upcoming inspections in 30/60/90 day windows
+      4. MEL Status — open items per aircraft, expiring items flagged
+      5. Parts & Procurement — open orders, critical shortages, life-limit warnings
+      6. Reliability Indicators — dispatch reliability rate, snag rate trend
+      7. Risk Items — anything needing management action, flagged with [ACTION REQUIRED]
+
+      Write report to reports/weekly-fleet-YYYY-WNN.md (use current year and ISO week number).
+      Archive previous fleet-health.json to data/history/ with date stamp.
+    capabilities:
+      mutates_state: true
+      writes_files: true
+      requires_commit: true
